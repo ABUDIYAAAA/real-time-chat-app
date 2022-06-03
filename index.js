@@ -19,6 +19,9 @@ io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
   });
+  socket.on('typing', (name) => {
+    io.emit('typing', (name))
+  });
 });
 
 io.on('connection', (socket) => {
