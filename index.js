@@ -2,14 +2,16 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-const { Server } = require("socket.io");
+const {
+  Server
+} = require("socket.io");
 const io = new Server(server);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-
+connected = []
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -21,6 +23,9 @@ io.on('connection', (socket) => {
   });
   socket.on('typing', (name) => {
     io.emit('typing', (name))
+  });
+  socket.on('join', (name) => {
+    io.emit('join', name)
   });
 });
 
